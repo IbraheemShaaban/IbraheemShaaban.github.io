@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ebraheem Shabaan | Portfolio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    line-height:1.6;
+}
+
+header{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+header h1{
+    font-size:3rem;
+    color:#38bdf8;
+}
+
+header p{
+    font-size:1.2rem;
+    margin-top:10px;
+    color:#cbd5e1;
+}
+
+.btn{
+    margin-top:20px;
+    padding:10px 20px;
+    background:#38bdf8;
+    color:#0f172a;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+section{
+    padding:80px 10%;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:40px;
+    color:#38bdf8;
+}
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+}
+
+.skill{
+    background:#1e293b;
+    padding:10px 20px;
+    border-radius:20px;
+}
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.project{
+    background:#1e293b;
+    padding:20px;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.project:hover{
+    transform:translateY(-5px);
+}
+
+.project h3{
+    margin-bottom:10px;
+    color:#38bdf8;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#1e293b;
+}
+
+a{
+    color:#38bdf8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Ebraheem Shabaan</h1>
+    <p>Computer & Systems Engineering Student  
+    Aspiring Data Engineer | Backend Developer</p>
+    <a href="#projects" class="btn">View My Work</a>
+</header>
+
+<section id="about">
+    <h2>About Me</h2>
+    <p style="text-align:center; max-width:700px; margin:auto;">
+        Passionate engineering student focused on backend development and data engineering.
+        I enjoy building structured systems using OOP principles and solving real-world
+        problems through software and electronics projects.
+    </p>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+        <div class="skill">Java</div>
+        <div class="skill">OOP</div>
+        <div class="skill">MySQL</div>
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">HTML & CSS</div>
+        <div class="skill">Proteus</div>
+        <div class="skill">Data Structures</div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+
+        <div class="project">
+            <h3>Library Management System</h3>
+            <p>
+                OOP-based system with Admin, Librarian, and Borrower roles.
+                Features include book management, borrowing system,
+                and reporting.
+            </p>
+        </div>
+
+        <div class="project">
+            <h3>Wireless Power Transfer Circuit</h3>
+            <p>
+                Designed and simulated a coupled inductors circuit in Proteus
+                using 1kHz AC source for wireless energy transfer.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <p style="text-align:center;">
+        Email: your@email.com <br>
+        GitHub: github.com/yourusername
+    </p>
+</section>
+
+<footer>
+    © 2026 Ebraheem Shabaan | All Rights Reserved
+</footer>
+
+</body>
+</html>
