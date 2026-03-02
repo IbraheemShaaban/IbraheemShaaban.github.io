@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibraheem Shaaban | Data Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX compilation in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #020617; /* Slate 950 */
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glow-text {
+            background: linear-gradient(to right, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Custom Icon Component to ensure Lucide renders correctly in React via CDN
+        const Icon = ({ name, className = "w-5 h-5" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const App = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const [activeFilter, setActiveFilter] = useState('All');
+
+            const LINKS = {
+                linkedin: "https://www.linkedin.com/in/ebraheem-shaaban39",
+                github: "https://github.com/IbraheemShaaban",
+                portfolio: "https://IbraheemShaaban.github.io",
+                email: "ebraheemshabaan2004@gmail.com"
+            };
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const skills = [
+                { name: 'Python', icon: 'file-json-2', category: 'Language' },
+                { name: 'PySpark', icon: 'zap', category: 'Processing' },
+                { name: 'Snowflake', icon: 'database', category: 'Warehouse' },
+                { name: 'Airflow', icon: 'workflow', category: 'Orchestration' },
+                { name: 'AWS Cloud', icon: 'cloud', category: 'Infrastructure' },
+                { name: 'Docker', icon: 'container', category: 'DevOps' },
+                { name: 'Kafka', icon: 'radio', category: 'Streaming' },
+                { name: 'dbt', icon: 'terminal', category: 'Transformation' }
+            ];
+
+            const projects = [
+                {
+                    id: 1,
+                    title: "Real-Time Event Streaming Pipeline",
+                    description: "Architected a high-throughput data pipeline using Apache Kafka and Spark Streaming to ingest and process over 1 million daily user events for real-time analytics dashboards.",
+                    tech: ["Kafka", "PySpark", "AWS MSK", "Python"],
+                    category: "Streaming",
+                    impact: "Sub-second latency"
+                },
+                {
+                    id: 2,
+                    title: "Medallion Data Lakehouse",
+                    description: "Designed a scalable Bronze-Silver-Gold architecture utilizing Delta Lake and dbt. Centralized disparate data sources into a single source of truth for the BI team.",
+                    tech: ["Delta Lake", "dbt", "Snowflake", "S3"],
+                    category: "Architecture",
+                    impact: "100% Data Accuracy"
+                },
+                {
+                    id: 3,
+                    title: "Cloud-Native ETL Orchestrator",
+                    description: "Developed and deployed custom Apache Airflow DAGs to automate complex data extraction and loading processes across multi-cloud environments (GCP to AWS).",
+                    tech: ["Apache Airflow", "Docker", "Python", "AWS Glue"],
+                    category: "ETL",
+                    impact: "Automated 50+ jobs"
+                }
+            ];
+
+            const filteredProjects = activeFilter === 'All' 
+                ? projects 
+                : projects.filter(p => p.category === activeFilter);
+
+            return (
+                <div className="min-h-screen flex flex-col relative overflow-hidden selection:bg-blue-500/30">
+                    
+                    {/* Background Effects */}
+                    <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+                    <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+                    {/* Navigation */}
+                    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-4 glass border-b-white/5' : 'py-6 bg-transparent'}`}>
+                        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                                    <Icon name="database" className="text-white w-5 h-5" />
+                                </div>
+                                <span className="font-bold text-lg tracking-tight">Ibraheem.S</span>
+                            </div>
+                            <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400">
+                                <a href="#about" className="hover:text-white transition-colors">About</a>
+                                <a href="#skills" className="hover:text-white transition-colors">Stack</a>
+                                <a href="#projects" className="hover:text-white transition-colors">Pipelines</a>
+                                <a href={`mailto:${LINKS.email}`} className="px-5 py-2.5 bg-white text-slate-950 rounded-full hover:bg-blue-500 hover:text-white transition-all transform hover:scale-105">
+                                    Contact Me
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <main className="flex-grow">
+                        <section id="about" className="pt-40 pb-20 px-6">
+                            <div className="max-w-6xl mx-auto">
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold font-mono mb-8">
+                                    <span className="relative flex h-2 w-2">
+                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                                    </span>
+                                    Open to Work
+                                </div>
+                                
+                                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+                                    Ibraheem Shaaban<br />
+                                    <span className="glow-text">Data Engineer.</span>
+                                </h1>
+                                
+                                <p className="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
+                                    I specialize in designing scalable ETL pipelines, optimizing data warehouses, and building robust cloud infrastructures that turn raw data into actionable business intelligence.
+                                </p>
+                                
+                                <div className="flex flex-wrap items-center gap-4">
+                                    <a href="#projects" className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2">
+                                        View Projects <Icon name="arrow-right" className="w-4 h-4" />
+                                    </a>
+                                    <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 glass rounded-xl hover:bg-slate-800 transition-colors text-slate-300 hover:text-white group">
+                                        <Icon name="linkedin" className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                                    </a>
+                                    <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="p-4 glass rounded-xl hover:bg-slate-800 transition-colors text-slate-300 hover:text-white group">
+                                        <Icon name="github" className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Tech Stack */}
+                        <section id="skills" className="py-20 border-y border-white/5 bg-slate-900/30">
+                            <div className="max-w-6xl mx-auto px-6">
+                                <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.2em] mb-10">Technical Arsenal</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {skills.map((skill, index) => (
+                                        <div key={index} className="glass p-5 rounded-2xl hover:border-blue-500/30 transition-colors group flex items-center gap-4">
+                                            <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                                <Icon name={skill.icon} className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <h3 className="font-semibold text-sm text-slate-200">{skill.name}</h3>
+                                                <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">{skill.category}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Projects */}
+                        <section id="projects" className="py-32 px-6">
+                            <div className="max-w-6xl mx-auto">
+                                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                                    <div>
+                                        <h2 className="text-4xl font-extrabold mb-4">Featured Pipelines</h2>
+                                        <p className="text-slate-400">Architectures built for scale, reliability, and performance.</p>
+                                    </div>
+                                    <div className="flex glass p-1.5 rounded-xl border-white/5">
+                                        {['All', 'Streaming', 'Architecture', 'ETL'].map((tab) => (
+                                            <button 
+                                                key={tab}
+                                                onClick={() => setActiveFilter(tab)}
+                                                className={`px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${activeFilter === tab ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                                            >
+                                                {tab}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid lg:grid-cols-3 gap-6">
+                                    {filteredProjects.map((project) => (
+                                        <div key={project.id} className="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 border-white/5 hover:border-blue-500/30 flex flex-col">
+                                            <div className="flex justify-between items-start mb-6">
+                                                <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
+                                                    <Icon name="git-merge" className="w-6 h-6" />
+                                                </div>
+                                                <div className="text-right">
+                                                    <span className="block text-[10px] text-emerald-400 font-mono uppercase tracking-wider mb-1">Key Impact</span>
+                                                    <span className="text-sm font-bold">{project.impact}</span>
+                                                </div>
+                                            </div>
+                                            <h3 className="text-xl font-bold mb-3">{project.title}</h3>
+                                            <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
+                                                {project.description}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2 mt-auto">
+                                                {project.tech.map((tag, i) => (
+                                                    <span key={i} className="px-2.5 py-1 bg-slate-800 text-slate-300 text-[10px] font-mono rounded border border-white/5">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="py-12 border-t border-white/5 bg-slate-900/50 mt-auto">
+                        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                            <div className="text-center md:text-left">
+                                <h3 className="font-bold text-lg mb-1">Ibraheem Shaaban</h3>
+                                <p className="text-slate-500 text-sm">Data Engineer • {new Date().getFullYear()}</p>
+                            </div>
+                            <div className="flex items-center gap-6">
+                                <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm font-semibold">
+                                    <Icon name="linkedin" className="w-4 h-4" /> LinkedIn
+                                </a>
+                                <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-semibold">
+                                    <Icon name="github" className="w-4 h-4" /> GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
